@@ -10,5 +10,5 @@ startDB()
   });
 
 app.listen(8000, () => {
-  console.log("server has started in por 8000");
+  console.log("server has started");
 });
