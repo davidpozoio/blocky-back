@@ -27,7 +27,7 @@ app.use(
   })
 );
 
-app.use(morgan("dev"));
+app.use(process.env.DEVELOP_MODE === "prod" ? () => {} : morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
 
