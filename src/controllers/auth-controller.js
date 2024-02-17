@@ -31,7 +31,12 @@ exports.login = asyncErrorHandler(async (req, res) => {
 
   const token = await createToken({ id: user.id });
 
-  res.cookie(NAMES.JWT, token, { httpOnly: true, path: "/", secure: true });
+  res.cookie(NAMES.JWT, token, {
+    httpOnly: true,
+    path: "/",
+    secure: true,
+    domain: process.env.DEVELOP_MODE === "prod" ? process.env.DOMAIN : "",
+  });
 
   res.status(200).json({
     message: "user authenticated",
