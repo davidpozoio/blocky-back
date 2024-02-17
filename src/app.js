@@ -2,9 +2,11 @@ const express = require("express");
 const dotenv = require("dotenv");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("../swagger_output.json");
-dotenv.config({
-  path: ".env",
-});
+if (process.env.DEVELOP_MODE !== "prod")
+  dotenv.config({
+    path: ".env",
+  });
+
 const {
   globalErrorController,
 } = require("./controllers/global-error-controller");
@@ -22,15 +24,15 @@ app.use(
   cors({
     credentials: true,
     origin: [
-      process.env.DEVELOP_MODE === "prod"
-        ? process.env.HOST_FRONT_PROD
-        : process.env.HOST_FRONT_DEV,
+      process.env.DEVELOP_MODE || "" === "prod"
+        ? process.env.HOST_FRONT_PROD || ""
+        : process.env.HOST_FRONT_DEV || "",
     ],
     methods: ["POST", "GET", "PATCH", "PUT"],
   })
 );
 
-app.use(process.env.DEVELOP_MODE === "prod" ? () => {} : morgan("dev"));
+app.use(process.env.DEVELOP_MODE || "" === "prod" ? () => {} : morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
 
