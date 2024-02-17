@@ -31,7 +31,7 @@ exports.login = asyncErrorHandler(async (req, res) => {
 
   const token = await createToken({ id: user.id });
 
-  res.cookie(NAMES.JWT, token, { httpOnly: true, path: "/" });
+  res.cookie(NAMES.JWT, token, { httpOnly: true, path: "/", secure: true });
 
   res.status(200).json({
     message: "user authenticated",
@@ -42,7 +42,7 @@ exports.signup = asyncErrorHandler(async (req, res) => {
   const user = await authService.signup(req.body.username, req.body.password);
 
   const token = await createToken({ id: user.id });
-  res.cookie(NAMES.JWT, token, { httpOnly: true, path: "/" });
+  res.cookie(NAMES.JWT, token, { httpOnly: true, path: "/", secure: true });
 
   res.status(201).json({
     user: {
