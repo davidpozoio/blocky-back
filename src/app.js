@@ -2,10 +2,10 @@ const express = require("express");
 const dotenv = require("dotenv");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("../swagger_output.json");
-if (process.env.DEVELOP_MODE !== "prod")
-  dotenv.config({
-    path: ".env",
-  });
+
+dotenv.config({
+  path: process.env.DEVELOP_MODE === "prod" ? "/etc/secrets/.env" : ".env",
+});
 
 const {
   globalErrorController,
