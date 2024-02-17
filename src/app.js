@@ -19,7 +19,7 @@ const noteRouter = require("./routes/notes-router");
 const authRouter = require("./routes/auth-router");
 
 const app = express();
-
+app.set("trust proxy", 1);
 app.use(
   cors({
     credentials: true,
