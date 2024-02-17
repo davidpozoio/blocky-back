@@ -28,6 +28,7 @@ app.use(
       process.env.DEVELOP_MODE === "prod"
         ? process.env.HOST_FRONT_PROD
         : process.env.HOST_FRONT_DEV,
+      "http://localhost:5173",
     ],
     methods: ["POST", "GET", "PATCH", "PUT"],
   })
