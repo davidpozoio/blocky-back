@@ -26,6 +26,7 @@ app.use(
         ? process.env.HOST_FRONT_PROD
         : process.env.HOST_FRONT_DEV,
     ],
+    methods: ["POST", "GET", "PATCH", "PUT"],
   })
 );
 
