@@ -36,6 +36,7 @@ exports.login = asyncErrorHandler(async (req, res) => {
     path: "/",
     secure: true,
     domain: process.env.DEVELOP_MODE === "prod" ? process.env.DOMAIN : "",
+    sameSite: "None",
   });
 
   res.status(200).json({
