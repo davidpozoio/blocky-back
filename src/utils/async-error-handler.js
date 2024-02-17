@@ -6,6 +6,9 @@ exports.asyncErrorHandler = (controller) => {
     if (!errors.isEmpty()) {
       return next(errors.array());
     }
-    controller(req, res, next).catch((err) => next(err));
+    controller(req, res, next).catch((err) => {
+      console.log("error::::", err.message);
+      next(err);
+    });
   };
 };

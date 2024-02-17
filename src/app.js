@@ -1,5 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("../swagger_output.json");
 dotenv.config({
   path: ".env",
 });
@@ -34,6 +36,7 @@ app.use(cookieParser());
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/notes", noteRouter);
+app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use("*", (req, res) => {
   res.status(400).json({ message: "route not found" });

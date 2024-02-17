@@ -1,3 +1,4 @@
+const ERROR_CODES = require("../consts/error-codes");
 const { findByUsername, comparePassword } = require("../models/user-model");
 const HttpError = require("../utils/error-optional");
 const userService = require("./user-service");
@@ -7,12 +8,20 @@ class AuthService {
     //find user by username
     const user = await findByUsername(username);
     if (!user) {
-      throw new HttpError("username is incorrect", 404);
+      throw new HttpError(
+        ERROR_CODES.E2000.MESSAGE,
+        404,
+        ERROR_CODES.E2000.CODE
+      );
     }
     //compare passwords
     const isAuth = await comparePassword(password, user.password);
     if (!isAuth) {
-      throw new HttpError("password is incorrect", 401);
+      throw new HttpError(
+        ERROR_CODES.E2001.MESSAGE,
+        401,
+        ERROR_CODES.E2001.CODE
+      );
     }
 
     return user;

@@ -7,6 +7,14 @@ exports.findAllNotes = () => {
   });
 };
 
+exports.findNoteById = (id, userId) => {
+  return db
+    .query("SELECT * FROM note WHERE id = $1 AND user_id = $2", [id, userId])
+    .then((res) => {
+      return res.rows[0];
+    });
+};
+
 exports.findAllNotesByUserId = (userId) => {
   return db
     .query("SELECT * FROM note WHERE user_id = $1", [userId])
@@ -16,11 +24,14 @@ exports.findAllNotesByUserId = (userId) => {
 };
 
 exports.createNewNote = ({ title, content, userId }) => {
-  return db.query(
-    `INSERT INTO note (title, content, is_deleting, delete_date, user_id)
-     VALUES ($1, $2, $3, $4, $5)`,
-    [title, content, false, new Date().toISOString(), userId]
-  );
+  return db
+    .query(
+      `INSERT INTO note (title, content, is_deleting, delete_date, user_id)
+     VALUES ($1, $2, $3, $4, $5)
+     RETURNING *`,
+      [title, content, false, new Date().toISOString(), userId]
+    )
+    .then((res) => res.rows[0]);
 };
 
 exports.markDeleteNote = (noteId, userId) => {
@@ -51,7 +62,7 @@ exports.updateNote = ({ title, content, noteId, userId }) => {
   if ((title || title === "") && (content || content === "")) {
     return db
       .query(
-        "UPDATE note SET (title = $1, content = $2) WHERE id = $3 AND user_id = $4",
+        "UPDATE note SET title = $1, content = $2 WHERE id = $3 AND user_id = $4",
         [title, content, noteId, userId]
       )
       .then((res) => res.rowCount);

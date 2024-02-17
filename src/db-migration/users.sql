@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS note(
     is_deleting BOOLEAN NOT NULL DEFAULT TRUE,
     delete_date DATE,
     user_id SERIAL NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS blacklist(

@@ -12,3 +12,7 @@ startDB()
 app.listen(8000, () => {
   console.log("server has started");
 });
+
+process.on("uncaughtException", (err) => {
+  console.log(err);
+});

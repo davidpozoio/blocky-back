@@ -8,7 +8,8 @@ exports.globalErrorController = (error, req, res, next) => {
       : res.status(500).json({ message: error.message, error });
   }
 
-  res.status(error.code).json({
+  res.status(error.code || 500).json({
     message: error.message,
+    code: error.errorCode,
   });
 };

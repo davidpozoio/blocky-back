@@ -6,6 +6,7 @@ const {
   changeDeleteNoteState,
   deleteNote,
   updateNote,
+  getNoteById,
 } = require("../controllers/note-controller");
 const { requireAuth } = require("../controllers/auth-controller");
 const {
@@ -20,8 +21,12 @@ const router = new Router();
 router
   .route("/")
   .get(requireAuth, query("deleted").isBoolean().optional(), getAllNotesByMe)
-  .post(requireAuth, noteValidator, createNewNoteByMe)
-  .patch(requireAuth, notePatchValidator, updateNote);
+  .post(requireAuth, noteValidator, createNewNoteByMe);
+
+router
+  .route("/:id")
+  .get(requireAuth, [param("id").isNumeric().notEmpty()], getNoteById)
+  .patch(requireAuth, [param("id").isNumeric().notEmpty()], updateNote);
 
 router
   .route("/:noteId/:isInTrash")

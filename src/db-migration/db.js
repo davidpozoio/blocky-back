@@ -8,7 +8,7 @@ exports.startDB = () => {
       const sql = await fs.readFile(`src/db-migration/${file}`, {
         encoding: "utf-8",
       });
-      db.query(sql).then().catch();
+      db.query(sql).then();
     });
   });
 };
