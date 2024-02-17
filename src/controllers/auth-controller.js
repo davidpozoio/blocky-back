@@ -30,7 +30,8 @@ exports.login = asyncErrorHandler(async (req, res) => {
   const user = await authService.login(req.body.username, req.body.password);
 
   const token = await createToken({ id: user.id });
-  res.cookie(NAMES.JWT, token, { httpOnly: true, path: "/", sameSite: "none" });
+
+  res.cookie(NAMES.JWT, token, { httpOnly: true, path: "/" });
 
   res.status(200).json({
     message: "user authenticated",
@@ -41,7 +42,7 @@ exports.signup = asyncErrorHandler(async (req, res) => {
   const user = await authService.signup(req.body.username, req.body.password);
 
   const token = await createToken({ id: user.id });
-  res.cookie(NAMES.JWT, token, { httpOnly: true, path: "/", sameSite: "none" });
+  res.cookie(NAMES.JWT, token, { httpOnly: true, path: "/" });
 
   res.status(201).json({
     user: {
@@ -82,7 +83,7 @@ exports.logout = asyncErrorHandler(async (req, res) => {
   }
 
   await createNewBlackListedToken(cookieJwt);
-  res.cookie(NAMES.JWT, "", { expiresIn: 0, httpOnly: true, sameSite: "none" });
+  res.cookie(NAMES.JWT, "", { expiresIn: 0, httpOnly: true });
 
   res.status(200).json({
     status: "success",
