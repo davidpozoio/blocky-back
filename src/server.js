@@ -1,5 +1,6 @@
 const app = require("./app");
 const { startDB } = require("./db-migration/db");
+const port = process.env.PORT || 8000;
 
 startDB()
   .then(() => {
@@ -9,8 +10,8 @@ startDB()
     console.log(err.message);
   });
 
-app.listen(8000, () => {
-  console.log("server has started");
+app.listen(port, () => {
+  console.log("server has started in port " + port);
 });
 
 process.on("uncaughtException", (err) => {

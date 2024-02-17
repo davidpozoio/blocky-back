@@ -3,16 +3,11 @@ const dotenv = require("dotenv");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("../swagger_output.json");
 
-if (process.env.DEVELOP_MODE !== "prod ") {
-  console.log("getting env variables");
+if (process.env.DEVELOP_MODE !== "prod") {
   dotenv.config({
     path: ".env",
   });
 }
-
-console.log(process.env.DEVELOP_MODE);
-console.log(process.env.HOST_FRONT_PROD);
-console.log(process.env.HOST_DATABASE);
 
 const {
   globalErrorController,

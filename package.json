@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "set DEVELOP_MODE=prod && node src/server.js",
+    "start": "set DEVELOP_MODE=prod&& node src/server.js",
     "dev": "nodemon src/server.js",
     "swagger-autogen": "node swagger.js"
   },
