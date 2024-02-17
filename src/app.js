@@ -3,11 +3,9 @@ const dotenv = require("dotenv");
 const swaggerUi = require("swagger-ui-express");
 const swaggerFile = require("../swagger_output.json");
 
-if (process.env.DEVELOP_MODE !== "prod") {
-  dotenv.config({
-    path: ".env",
-  });
-}
+dotenv.config({
+  path: ".env",
+});
 
 const {
   globalErrorController,
@@ -34,7 +32,13 @@ app.use(
   })
 );
 
-app.use(process.env.DEVELOP_MODE === "prod" ? () => {} : morgan("dev"));
+app.use(
+  process.env.DEVELOP_MODE === "prod"
+    ? (req, res, next) => {
+        next();
+      }
+    : morgan("dev")
+);
 app.use(express.json());
 app.use(cookieParser());
 
