@@ -30,7 +30,7 @@ app.use(
         : process.env.HOST_FRONT_DEV,
       "http://localhost:5173",
     ],
-    methods: ["POST", "GET", "PATCH", "PUT"],
+    methods: ["POST", "GET", "PATCH", "PUT", "DELETE"],
   })
 );
 
