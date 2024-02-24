@@ -35,7 +35,7 @@ exports.login = asyncErrorHandler(async (req, res) => {
     httpOnly: true,
     path: "/",
     secure: true,
-    domain: process.env.DEVELOP_MODE === "prod" ? process.env.DOMAIN : "",
+    /*     domain: process.env.DEVELOP_MODE === "prod" ? process.env.DOMAIN : "", */
     sameSite: "None",
   });
 
