@@ -7,6 +7,7 @@ const {
   deleteNote,
   updateNote,
   findNoteById,
+  deleteAllOldNotes,
 } = require("../models/note-model");
 const HttpError = require("../utils/error-optional");
 
@@ -76,6 +77,10 @@ class NoteService {
         );
       }
     });
+  }
+
+  async deleteOldNotes() {
+    return deleteAllOldNotes();
   }
 }
 

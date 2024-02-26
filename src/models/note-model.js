@@ -37,8 +37,8 @@ exports.createNewNote = ({ title, content, userId }) => {
 exports.markDeleteNote = (noteId, userId) => {
   return db
     .query(
-      "UPDATE note SET is_deleting = true WHERE id = $1 AND user_id = $2",
-      [noteId, userId]
+      "UPDATE note SET is_deleting = true, delete_date = $1 WHERE id = $2 AND user_id = $3",
+      [new Date(), noteId, userId]
     )
     .then((res) => res.rowCount);
 };
@@ -91,4 +91,12 @@ exports.updateNote = ({ title, content, noteId, userId }) => {
   if (!title && !content) {
     throw new HttpError("you must put a title or a content", 400);
   }
+};
+
+exports.deleteAllOldNotes = () => {
+  return db.query(
+    `DELETE FROM note WHERE is_deleting = TRUE
+  AND delete_date < CURRENT_DATE - INTERVAL '$1'`,
+    [process.env.LIVE_TIME || "2 day"]
+  );
 };
