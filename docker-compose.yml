@@ -6,6 +6,10 @@ services:
       - database
     ports:
       - "${PORT}:${PORT}"
+    volumes:
+      - ./.env:/app/.env
+      - ./swagger_output.json:/app/swagger_output.json
+      - ./src:/app/src
   database:
     image: postgres:17.2-alpine3.21
     env_file: ./.env
